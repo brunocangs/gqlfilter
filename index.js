@@ -1,5 +1,6 @@
 const { graphql, buildSchema, printSchema } = require("graphql");
 const { jsonToSchema } = require("@walmartlabs/json-to-simple-graphql-schema");
+const merge = require("lodash.merge");
 
 const flattenArrays = (obj) => {
   if (!Array.isArray(obj)) {
@@ -15,13 +16,7 @@ const flattenArrays = (obj) => {
   } else {
     const first = obj[0];
     if (first && typeof first === "object" && first !== null) {
-      return [
-        flattenArrays(
-          obj.reduce((prev, curr) => {
-            return { ...prev, ...curr };
-          })
-        ),
-      ];
+      return [merge(...obj)];
     } else {
       return obj;
     }
