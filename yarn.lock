@@ -2,10 +2,9 @@
 # yarn lockfile v1
 
 
-"@walmartlabs/json-to-simple-graphql-schema@^2.0.4":
+"@walmartlabs/json-to-simple-graphql-schema@https://github.com/brunocangs/json-to-simple-graphql-schema":
   version "2.0.5"
-  resolved "https://registry.yarnpkg.com/@walmartlabs/json-to-simple-graphql-schema/-/json-to-simple-graphql-schema-2.0.5.tgz#8461aca1f02347bb8a46e161e919756550e5708f"
-  integrity sha512-f6/GxABWovPEFUkQNBaKLdFGtAB4Ax/TYPpYDZ9xkDNhCjMYeRXhuwUqpg2pnC5qSiy5fTy4h6i0aps9vksSPA==
+  resolved "https://github.com/brunocangs/json-to-simple-graphql-schema#7adca306a99684714cd343dfda848a22be8da4ad"
   dependencies:
     lodash.isboolean "^3.0.3"
     lodash.isinteger "^4.0.4"

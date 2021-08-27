@@ -1,11 +1,11 @@
 {
   "name": "bc-graphql-filter",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "main": "index.js",
   "types": "index.d.ts",
   "license": "MIT",
   "dependencies": {
-    "@walmartlabs/json-to-simple-graphql-schema": "^2.0.4",
+    "@walmartlabs/json-to-simple-graphql-schema": "https://github.com/brunocangs/json-to-simple-graphql-schema",
     "graphql": "^15.5.1",
     "lodash.merge": "^4.6.2"
   },
