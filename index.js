@@ -1,5 +1,7 @@
 const { graphql, buildSchema } = require("graphql");
-const { jsonToSchema } = require("@walmartlabs/json-to-simple-graphql-schema");
+const {
+  jsonToSchema,
+} = require("@walmartlabs/json-to-simple-graphql-schema/lib");
 const merge = require("lodash.merge");
 
 const flattenArrays = (obj) => {
