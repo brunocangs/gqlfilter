@@ -1,6 +1,7 @@
-const { graphql, buildSchema } = require("graphql");
+const { graphql, buildSchema, printSchema } = require("graphql");
 const {
   jsonToSchema,
+  stringifySchema,
 } = require("@walmartlabs/json-to-simple-graphql-schema/lib");
 const merge = require("lodash.merge");
 
@@ -27,7 +28,7 @@ const flattenArrays = (obj) => {
 
 function gqlFilter(obj, query) {
   try {
-    const data = flattenArrays(obj);
+    const data = flattenArrays(JSON.parse(JSON.stringify(obj)));
     const schema = buildSchema(
       `
     type Query {
@@ -41,6 +42,7 @@ function gqlFilter(obj, query) {
     }
   `
     );
+    printSchema(schema);
     return graphql(
       schema,
       `
@@ -61,15 +63,28 @@ function gqlFilter(obj, query) {
 }
 const bulkFilter = async (obj, filters) => {
   const entries = Object.entries(obj);
-  const promises = entries.map(([key, val]) =>
-    gqlFilter(val, filters[key]).catch((e) => {
-      console.error(e);
-      return val;
-    })
-  );
+  const promises = entries.map(([key, val]) => {
+    let data = val;
+    let filter = filters[key];
+    if (Array.isArray(val)) {
+      data = { arr: val };
+      filter = `{arr ${filter}}`;
+    }
+    return gqlFilter(data, filter)
+      .then((res) => {
+        if (Array.isArray(val)) {
+          return res.arr;
+        }
+        return res;
+      })
+      .catch((e) => {
+        console.error(e);
+        return val;
+      });
+  });
   const result = await Promise.all(promises);
   return Object.fromEntries(entries.map(([key], i) => [key, result[i]]));
 };
 
 module.exports = gqlFilter;
-exports.bulkFilter = bulkFilter;
+module.exports.bulkFilter = bulkFilter;

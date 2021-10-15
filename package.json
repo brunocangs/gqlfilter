@@ -1,6 +1,6 @@
 {
   "name": "bc-graphql-filter",
-  "version": "1.0.9",
+  "version": "1.0.15",
   "main": "index.js",
   "types": "index.d.ts",
   "license": "MIT",
